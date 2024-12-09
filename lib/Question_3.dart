@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 // ignore: depend_on_referenced_packages
@@ -7,20 +8,38 @@ class Question_3 extends StatefulWidget {
   const Question_3({super.key});
 
   @override
-  _Question_3State createState() => _Question_3State();
+  Question_3State createState() => Question_3State();
 }
 
-class _Question_3State extends State<Question_3> {
+class Question_3State extends State<Question_3> {
   bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Details'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); 
+          },
         ),
-        backgroundColor: Colors.green,
+        title: const Text(
+          'Details',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite_border, color: Colors.red),
+            onPressed: () {
+              // Add your favorite logic here
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Added to favorites!')),
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -30,11 +49,26 @@ class _Question_3State extends State<Question_3> {
             children: [
               // Image at the top
               Center(
-                child: Image.network(
-                  'https://www.tradethemark.com/cdn/shop/products/TradeTheMark_Ceramic_Lg_Vessel_Bluehaze_blue_2_1024x1024.jpg?v=1571460117',
-                  width: 350,
-                  height: 350,
-                  fit: BoxFit.cover,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 5,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      'https://www.tradethemark.com/cdn/shop/products/TradeTheMark_Ceramic_Lg_Vessel_Bluehaze_blue_2_1024x1024.jpg?v=1571460117',
+                      width: 350,
+                      height: 350,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -45,7 +79,7 @@ class _Question_3State extends State<Question_3> {
                   const Text(
                     'Ageratum',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -54,20 +88,18 @@ class _Question_3State extends State<Question_3> {
                     initialRating: 4.8,
                     minRating: 1,
                     itemSize: 20,
-                    itemCount: 5,
+                    itemCount: 1,
                     allowHalfRating: true,
                     itemBuilder: (context, _) => const Icon(
                       Icons.star,
                       color: Colors.green,
                     ),
-                    onRatingUpdate: (rating) {
-                      // Optional: Handle rating updates
-                    },
+                    onRatingUpdate: (rating) {},
                   ),
                   const SizedBox(width: 10),
                   const Text(
                     '4.8 (268 Reviews)',
-                    style: TextStyle(fontSize: 13, color: Colors.grey),
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
               ),
@@ -135,20 +167,28 @@ class _Question_3State extends State<Question_3> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      // Add to Cart functionality
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 30,
                         vertical: 15,
                       ),
-                      textStyle: const TextStyle(
-                        fontSize: 16,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text('Add to Cart'),
+                    child: const Row(
+                      children: [
+                        
+                        SizedBox(width: 5),
+                        Text(
+                          'Add to Cart',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
